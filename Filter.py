@@ -1,5 +1,6 @@
 
 class Filter(object):
+
 	def add_url_to_list(url):
 		ipaddr = socket.gethostbyname(url)
 		self.blocked_list[ipaddr] = url
@@ -33,9 +34,10 @@ class Filter(object):
 		self.q.create_queue(0)
 		self.q.try_run()
 
-	def _init_():
+	def _init_(self):
 		self.blocked_list = {'75.101.146.4': "woot.com"} #  format of dictionary is  list= {'ipaddress': url}
 		self.p = Process(target=go)
+		# poor woot, getting hated on by default
 
-	def run():
+	def run(dummy):
 		self.p.start()

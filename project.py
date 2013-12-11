@@ -49,14 +49,14 @@ if fails:
 	runbridge_setup()
 
 print "Instantiating the Filter..."
-filt = Filter()
+filt = Filter.Filter()
 
 
 print "Starting filter queue thread..."
 try:
-  filt.start()
+  filt.run()
 except:
-  filt.start()
+  filt.run()
 
 cherrypy.config.update({'server.socket_host': local_ip, 
                          'server.socket_port': 80, 
