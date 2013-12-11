@@ -1,0 +1,41 @@
+<html>
+	<head>
+<style type="text/css">
+div.topbar{
+	background-color:#333333;
+	position:absolute;
+	top:0px;
+	left:0px;
+	padding: 0px;
+	width:100%;
+	padding:25px;
+}
+div.title{
+	font-family: georgia, serif;
+	color: #02BFB6;
+	font-size: 35px;
+	letter-spacing: 1.4pt;
+}
+</style>
+	</head>
+	<body>
+		<div class='topbar'>
+			<div class='title'>Pi Filter</div>
+		</div>
+
+		<div>
+			<h4>Blocked Sites</h4>
+
+			<form action="/add_block/" method="post">
+			  <input type="text" name="url" value="url" />
+			  <button type="button">Add to List</button>
+			</form>
+		</div>
+
+		<ul>
+			% for key in block_list
+				<li><button type="button">remove(not_implemented)</button>  $(block_list[key])</li>
+			% endfor
+		</ul>
+	</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<h1>Pi Blocker</h1>
+
+		<div>
+			<h4>Blocked Sites</h4>
+
+			<form action="/add_block/" method="post">
+			  <input type="text" name="url" value="url" />
+			  <button type="button">Add to List</button>
+			</form>
+		</div>
+
+		<ul>
+			% for key in block_list
+				<li><button type="button">remove(not_implemented)</button>  $(block_list[key])</li>
+			% endfor
+		</ul>
+
+	</body>
+</html>
