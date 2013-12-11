@@ -1,21 +1,21 @@
 
 class Filter(object):
 
-	def add_url_to_list(url):
+	def add_url_to_list(self, url):
 		ipaddr = socket.gethostbyname(url)
 		self.blocked_list[ipaddr] = url
 
-	def check_if_in_list(ipaddr):
+	def check_if_in_list(self, ipaddr):
 		if ipaddr in self.blocked_list:
 			return True
 		return False
 
-	def check_if_in_list(ipaddr): 
+	def check_if_in_list(self, ipaddr): 
 		if ipaddr in self.blocked_list:    
 			return True
 		return False
 
-	def filter_pkt(dummy, payload):
+	def filter_pkt(self, payload):
 		data = payload.get_data()
 		pkt  = IP(data)
 		# check if packet destination or source is in block list
@@ -26,7 +26,7 @@ class Filter(object):
 		else:
 		  payload.set_verdict(nfqueue.NF_ACCEPT)
 
-	def go():
+	def go(self):
 		self.q = nfqueue.queue()
 		self.q.open()
 		self.q.bind(socket.AF_INET)
@@ -39,5 +39,5 @@ class Filter(object):
 		self.p = Process(target=go)
 		# poor woot, getting hated on by default
 
-	def run(dummy):
+	def run(self):
 		self.p.start()
