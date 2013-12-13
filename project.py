@@ -44,7 +44,7 @@ if fails:
 	runbridge_setup()
 
 print "Instantiating the Filter..."
-filt = filter.Filter()
+filt = filter.Filter(local_ip)
 
 
 print "Starting filter queue thread..."
@@ -53,6 +53,9 @@ try:
 except Exception:
   print "rebooting filter"
   filt.run()
+
+filter_status = True
+
 
 
 print "The starting dictionary..."
@@ -68,6 +71,9 @@ lookup = TemplateLookup(directories=['views'])
 class FilterServ(object):
   @cherrypy.expose
   def index(self):
+    return "requested page is blocked"
+
+  def admin(self, status=filter_status):
     tmpl = lookup.get_template("index.html")
     return tmpl.render(block_list=filt.blocked_list)
 
@@ -81,8 +87,11 @@ class FilterServ(object):
 
   add_block.exposed = True
 
-  def toggle_filter(self):
+  def toggle(self):
     return None # fill out later, just toggle the iptable rules
+
+  def remove(self, url=None, key=None):
+    return None # fill out later
 
 print "Starting cherrypy server..."
 

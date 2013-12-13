@@ -1,38 +1,88 @@
 <!DOCTYPE html>
 <html>
 	<head>
+<style type="text/css">
+
+.left{
+	float:left;
+}
+.right{
+	float:right;
+}
+.header{
+	position: absolute;
+	top: 2%;
+	left: 0%;
+	width: 99%;
+	padding: 0.8%;
+	background-color: #F286D9;
+	border-bottom: 2px;
+}
+.content{
+	position: absolute;
+	top: 15%;
+}
+.brand{
+	font-family: georgia, serif;
+	font-size: 30px;
+	letter-spacing: 0.8pt;
+}
+.fancy{
+	color: #187ADB;
+	font-size: 20px;
+	width: 135px;
+	height: 30px;
+}
+.pretty{
+	border-left: 0px;
+	border-right: 0px;
+	border-bottom: 1px;
+	border-top: 1px;
+	padding: 5px;
+	font-family: verdana, sans-serif;
+	font-size: 16px;
+
+	background-color: #FAACFD;
+}
+</style>
 	</head>
 	<body>
-		<h1>Pi Blocker</h1>
+		
 
-		<div>
-			<h4>Blocked Sites</h4>
+		<div class="header">
+			<span class="brand left">Pi Blocker</span>
 
-			<form action="add_block" method="post">
-			  <input type="text" name="url" value="" />
-			  <input type="submit" value="Add to List"/>
+			<form class="right" action="toggle" method="post">
+			% if status:
+				<input type="submit" class="fancy" value="Turn Filter OFF"/>
+			% else:
+				<input type="submit" class="fancy" value="Turn Filter ON"/>
+			% endif
 			</form>
 		</div>
 
-		<ul>
-			% for key in block_list:
-				<li><button type="button">remove(not_implemented)</button>  ${block_list[key]}</li>
-			% endfor
-		</ul>
+		<div class="content">
+			<form action="add_block" method="post">
+				<input type="text" name="url" value="" />
+				<input type="submit" value="Add to List"/>
+			</form>
+
+			<h4>Blocked Sites</h4>
+			<ul>
+				% for key in block_list:
+					<li>
+						<form action="remove" method="post">
+							<input type="text" class="pretty" name="url" value=${block_list[key]} readonly/>
+							<input type="text" class="pretty" name="key" value=${key} readonly/>
+							<input type="submit" value="Remove"/>
+						</form>
+					</li>
+				% endfor
+			</ul>
+
+		</div>
+
+
 
 	</body>
 </html>
-
-
-simple idea on removing from block list
-<form action="remove" method="post">
-	<input type="text" name="url" value="somehow put mako eval in here" readonly/>
-	<input type="text" name="key" value="somehow put mako eval in here" readonly/>
-	<input type="submit" value="Remove from list"/>
-</form>
-
-
-simple idea on filter toggle
-<form action="toggle" method="post">
-	<input type="submit" value="Turn Filter (eval opposite of current state, passed into this template)"/>
-</form>
